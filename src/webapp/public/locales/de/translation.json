@@ -371,6 +371,11 @@
     },
     "systemcontrols": {
       "title": "Systemsteuerung"
+    },
+    "metube": {
+      "title": "Musik herunterladen (z.B. YouTube)",
+      "row-label": "Musik herunterladen (z.B. YouTube)",
+      "row-description": "Audios von YouTube und anderen Plattformen in die Musikbibliothek herunterladen"
     }
   }
 }

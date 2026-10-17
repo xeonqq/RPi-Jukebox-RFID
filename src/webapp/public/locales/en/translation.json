@@ -373,6 +373,11 @@
     },
     "systemcontrols": {
       "title": "System Controls"
+    },
+    "metube": {
+      "title": "Download Music (i.e. YouTube)",
+      "row-label": "Download Music (i.e. YouTube)",
+      "row-description": "Download audio from YouTube and other platforms into your music library"
     }
   }
 }

@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 
 import SettingsAudio from './audio/index';
 import SettingsAutoHotspot from './autohotspot';
+import SettingsDownloadMusic from './metube';
 import SettingsGeneral from './general';
 import SettingsSecondSwipe from './secondswipe';
 import SettingsStatus from './status/index';
@@ -45,6 +46,9 @@ const Settings = () => {
       </Grid>
       <Grid>
         <SettingsAutoHotspot />
+      </Grid>
+      <Grid>
+        <SettingsDownloadMusic />
       </Grid>
     </Grid>
   );
