@@ -31,6 +31,37 @@ logconsole.setLevel(logging.INFO)
 logger.addHandler(logconsole)
 
 
+def get_default_reader_config(reader_name: str) -> dict:
+    """
+    Build the reader configuration dict for a specific reader module
+    with all-default values, bypassing interactive prompts.
+    """
+    if reader_name == 'rc522_spi':
+        return {
+            'rfid': {
+                'readers': {
+                    'read_00': {
+                        'module': 'rc522_spi',
+                        'config': {
+                            'spi_bus': 0,
+                            'spi_ce': 0,
+                            'pin_irq': 24,
+                            'pin_rst': 25,
+                            'mode_legacy': False,
+                            'antenna_gain': 4,
+                            'log_all_cards': False
+                        },
+                        'same_id_delay': 1.0,
+                        'log_ignored_cards': False,
+                        'place_not_swipe': {'enabled': False, 'card_removal_action': {'alias': 'pause'}}
+                    }
+                }
+            }
+        }
+    else:
+        raise ValueError(f"Default reader config for '{reader_name}' not implemented.")
+
+
 def main():
     # The default config file relative to this files location and independent of working directory
     script_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
@@ -46,6 +77,9 @@ def main():
     parser.add_argument("-c", "--conffile",
                         help=f"Output configuration file [default: '{cfg_file_default}']",
                         metavar="FILE", default=cfg_file_default)
+    parser.add_argument("-r", "--default-reader",
+                        help="Non-interactive: skip all prompts and write the configuration for the named reader module",
+                        metavar="READER", default=None)
     parser.add_argument("-v", "--verbosity",
                         help="Increase verbosity to 'DEBUG'",
                         action="store_true", default=False)
@@ -63,9 +97,15 @@ def main():
         return
 
     dinstall_lookup = {'a': 'auto', 'q': 'query', 'n': 'no', 'auto': 'auto', 'query': 'query', 'no': 'no'}
-    rfid_configure.write_config(args.conffile,
-                                rfid_configure.query_user_for_reader(dependency_install=dinstall_lookup[args.deps]),
-                                force_overwrite=args.force)
+    dinstall = dinstall_lookup[args.deps]
+    if args.default_reader:
+        rfid_configure.write_config(args.conffile,
+                                    get_default_reader_config(reader_name=args.default_reader),
+                                    force_overwrite=args.force)
+    else:
+        rfid_configure.write_config(args.conffile,
+                                    rfid_configure.query_user_for_reader(dependency_install=dinstall),
+                                    force_overwrite=args.force)
 
 
 if __name__ == '__main__':
