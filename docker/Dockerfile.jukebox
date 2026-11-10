@@ -43,8 +43,11 @@ RUN apt-get update && apt-get install -qq -y \
 
 # Generic Debian does not configure Raspberry Pi's repository, so build the lg
 # C library here instead of installing the Pi installer's `liblgpio-dev`.
-ARG LG_COMMIT=b959a17d723360e85648316757b02dbea9902feb
-ARG LG_ARCHIVE_SHA256=3554cd7e60d338b659d38579e6226c46690237d2abe69e8bd77ee7e3b6e615fe
+# Includes upstream fix for GCC-15 / C23: use typed function pointers
+# (joan2937/lg commits c5ee6c79 "define and use type-safe callbacks"
+# and c9049d35 "Use typed function pointers to fix FTBFS")
+ARG LG_COMMIT=bcccd782eceedc5b278b3056ea81d5fbbb89c489
+ARG LG_ARCHIVE_SHA256=913ca78f4f708e281079e01cc085d8fb1cce2add7086cc7a53ba04f4612f4aa6
 RUN mkdir -p /tmp/lg && cd /tmp/lg \
     && wget --quiet --timeout=30 --tries=3 \
         "https://github.com/joan2937/lg/archive/${LG_COMMIT}.zip" -O lg.zip \
