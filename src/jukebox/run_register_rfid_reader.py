@@ -48,7 +48,7 @@ def get_default_reader_config(reader_name: str) -> dict:
                             'pin_irq': 24,
                             'pin_rst': 25,
                             'mode_legacy': False,
-                            'antenna_gain': 4,
+                            'antenna_gain': 7,
                             'log_all_cards': False
                         },
                         'same_id_delay': 1.0,

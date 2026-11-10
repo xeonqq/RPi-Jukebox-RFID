@@ -53,7 +53,7 @@ If not used:
 
 4-byte-only legacy mode: previously the pirc522 library could only read the lower 4 bytes of a card UID. It can now read 4-byte and full 7-byte UIDs. Legacy mode turns back to the old behaviour. This only makes sense, if you already have an large RFID collection and do not want to re-assign every card.
 
-### antenna_gain _(default=4)_
+### antenna_gain _(default=7)_
 
 Antenna gain factor of the RFID reader chip on the MFRC522 board.
 

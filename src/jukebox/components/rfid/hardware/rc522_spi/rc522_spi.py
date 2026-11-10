@@ -52,7 +52,7 @@ def query_customization() -> dict:
             'pin_irq': pin_irq,
             'pin_rst': pin_rst,
             'mode_legacy': mode_legacy,
-            'antenna_gain': 4,
+            'antenna_gain': 7,
             'log_all_cards': False}
 
 
@@ -89,7 +89,7 @@ class ReaderClass(ReaderBaseClass):
             self.mode_legacy = config.setdefault('mode_legacy', False)
             self._logger.info(f"Using legacy_mode = '{self.mode_legacy}'")
 
-            antenna_gain = config.setdefault('antenna_gain', 4)
+            antenna_gain = config.setdefault('antenna_gain', 7)
             self.log_all_cards = config.setdefault('log_all_cards', False)
 
         self._keep_running = True
